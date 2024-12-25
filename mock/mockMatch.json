@@ -1,0 +1,18 @@
+{
+    "teamHome": {
+      "name": "Monaco",
+      "logo": "https://media.api-sports.io/football/teams/91.png"
+  },
+  "teamAway": {
+      "name": "Paris Saint Germain",
+      "logo": "https://media.api-sports.io/football/teams/85.png"
+  },
+  "date": "2024-12-18T20:00:00.000+00:00",
+  "odds": {
+      "home": 4.25,
+      "away": 1.78,
+      "draw": 3.95
+  },
+  "round": 16,
+  "status": "Non commençé"
+}
