@@ -33,12 +33,22 @@ router.post('/new', async (req,res) => {
     }
 })
 
+// Récupérer les rounds
+router.get('/rounds', async (req,res) => {
+    try {
+        const rounds = await Match.distinct('round').sort('round')
+        res.json({result: true, rounds})
+    } catch (err) {
+        res.json({error: err.message})
+    }
+})
+
 // Récupérer les matchs par semaine (round)
 router.get('/get/:round', async (req,res) => {
     const {round} = req.params
     try {
-        const matches = await Match.find({round}).sort({date: 1})
-        res.json({matches})
+        const matchs = await Match.find({round}).sort({date: 1})
+        res.json({matchs})
     } catch (err) {
         res.json({error: err.message})
     }
