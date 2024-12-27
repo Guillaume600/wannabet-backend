@@ -10,7 +10,7 @@ router.post('/signup', async (req,res) => {
     if(!checkBody(req.body, ['username', 'email', 'password'])) {
         return res.json({result: false, error: 'Champs manquants ou vides.'})
     }
-    const {email, username, password} = req.body
+    const {email, username, password, avatar} = req.body
     try {
         // Vérification de l'existence de l'email en BDD
         const user = await User.findOne({email})
@@ -24,11 +24,12 @@ router.post('/signup', async (req,res) => {
             username,
             email,
             password: hashedPassword,
+            avatar, // Si undefined, Mongoose replacera par la valeur par defaut
             token: uuid()
         })
         await newUser.save()
         newUser = await User.findOne({email})
-        res.json({result: true, username: newUser.username, email: newUser.email, token: newUser.token})
+        res.json({result: true, username: newUser.username, email: newUser.email, token: newUser.token, avatar: newUser.avatar})
     } catch (err) {
         res.json({error: err.message})
     }
@@ -49,7 +50,7 @@ router.post('/signin', async (req,res) => {
         if (!isPasswordValid) {
             return res.json({result: false, error: 'Email ou mot de passe incorrect.'})
         }
-        res.json({result: true, token: user.token, username: user.username, email: user.email, coins: user.coins})
+        res.json({result: true, token: user.token, username: user.username, email: user.email, coins: user.coins, avatar: user.avatar})
     } catch (err) {
         res.json({error: err.message})
     }
@@ -58,7 +59,7 @@ router.post('/signin', async (req,res) => {
 // Mise a jour d'un user via son token
 router.post('/update/:token', async (req,res) => {
     const {token} = req.params
-    const {email, username, password} = req.body
+    const {email, username, password, avatar} = req.body
     try {
         const user = await User.findOne({token})
         if(!user) {
@@ -67,6 +68,7 @@ router.post('/update/:token', async (req,res) => {
         if (email) {user.email = email}
         if (username) {user.username = username}
         if (password) {user.email = await bcrypt.hash(password, 10)}
+        if (avatar) {user.avatar = avatar}
         await user.save()
         res.json({result: true, message: `Utilisateur mis a jour`})
     } catch (err) {
@@ -83,6 +85,16 @@ router.get('/getProfile/:token', async (req,res) => {
             return res.json({result: false, error: 'Utilisateur introuvable.'})
         }
         res.json({result: true, username: user.username, email: user.email})
+    } catch (err) {
+        res.json({error: err.message})
+    }
+})
+
+// Récupération des utilisateurs triés par points
+router.get('/byPoints', async (req,res) => {
+    try {
+        const users = await User.find().sort({points: -1}) 
+        res.json({users})
     } catch (err) {
         res.json({error: err.message})
     }

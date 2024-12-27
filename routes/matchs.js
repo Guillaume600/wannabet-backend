@@ -82,7 +82,7 @@ router.get('/updateStatus', async (req,res) => {
         for (let match of matches) {
             const matchStatus = isMatchCompleted(match)
 
-            // Si le match est terminé on lui attribue un score aléatoire (a changer our l'API plus tard)
+            // Si le match est terminé on lui attribue un score aléatoire (a changer pour l'API plus tard)
             if (matchStatus === 'Terminé') {
                 // const home = Math.floor(Math.random() * 5)
                 // const away = Math.floor(Math.random() * 5)

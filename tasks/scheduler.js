@@ -8,7 +8,7 @@ const task = () => {
     console.log(`${new Date().toLocaleString()}, mise a jour des matchs...`)
     fetch(url)
     // Planification de l'execution de la route toutes les 10min
-    cron.schedule('*/10 * * * *', async () => {
+    cron.schedule('*/1 * * * *', async () => {
         console.log(`${new Date().toLocaleString()}, mise a jour des matchs...`)
         try {
             await fetch(url)
