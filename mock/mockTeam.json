@@ -1,0 +1,50 @@
+// Equipe 1
+{
+    "teamId": 54,
+    "name": "Team A",
+    "logo": "https://media.api-sports.io/football/teams/96.png",
+    "bestPlayer": {
+        "name": "Jean Nemar",
+        "goals": 25
+    },
+    "bestAssister": {
+        "name": "Marc Arnauld",
+        "assists": 43
+    },
+    "bestRatedPlayer": {
+        "name": "Jacques Girac",
+        "note": 7.68
+    },
+    "lastFixtures": [
+        {"opponent": "PSG", "result": "win"},
+        {"opponent": "Marseille", "result": "win"},
+        {"opponent": "Monaco", "result": "win"},
+        {"opponent": "Reims", "result": "loose"},
+        {"opponent": "Lille", "result": "loose"}
+      ]
+  }
+// Equipe 2
+  {
+    "teamId": 46,
+    "name": "Team B",
+    "logo": "https://media.api-sports.io/football/teams/46.png",
+    "bestPlayer": {
+        "name": "Harry PotdeBeurre",
+        "goals": 32
+    },
+    "bestAssister": {
+        "name": "Jean Renauld",
+        "assists": 56
+    },
+    "bestRatedPlayer": {
+        "name": "Van Damn",
+        "note": 5.63
+    },
+    "lastFixtures": [
+        {"opponent": "Lille", "result": "loose"},
+        {"opponent": "Bourges", "result": "win"},
+        {"opponent": "Olympique de Jenesaisou", "result": "win"},
+        {"opponent": "Reims", "result": "win"},
+        {"opponent": "Lyon", "result": "loose"}
+      ]
+  }

@@ -29,7 +29,7 @@ router.post('/signup', async (req,res) => {
         })
         await newUser.save()
         newUser = await User.findOne({email})
-        res.json({result: true, username: newUser.username, email: newUser.email, token: newUser.token, avatar: newUser.avatar})
+        res.json({result: true, username: newUser.username, email: newUser.email, token: newUser.token})
     } catch (err) {
         res.json({error: err.message})
     }
@@ -59,7 +59,7 @@ router.post('/signin', async (req,res) => {
 // Mise a jour d'un user via son token
 router.post('/update/:token', async (req,res) => {
     const {token} = req.params
-    const {email, username, password, avatar} = req.body
+    const {email, username, avatar} = req.body
     try {
         const user = await User.findOne({token})
         if(!user) {
@@ -67,10 +67,9 @@ router.post('/update/:token', async (req,res) => {
         }
         if (email) {user.email = email}
         if (username) {user.username = username}
-        if (password) {user.email = await bcrypt.hash(password, 10)}
         if (avatar) {user.avatar = avatar}
         await user.save()
-        res.json({result: true, message: `Utilisateur mis a jour`})
+        res.json({result: true, message: `Profil mis a jour avec succés !`})
     } catch (err) {
         res.json({error: err.message})
     }

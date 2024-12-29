@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var matchsRouter = require('./routes/matchs');
 var betsRouter = require('./routes/bets')
+var teamsRouter = require('./routes/teams')
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/matchs', matchsRouter)
 app.use('/bets', betsRouter)
+app.use('/teams', teamsRouter)
 
 // Tâche planifiée
 const task = require('./tasks/scheduler')
