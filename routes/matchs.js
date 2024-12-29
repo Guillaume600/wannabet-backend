@@ -44,15 +44,40 @@ router.get('/rounds', async (req,res) => {
 })
 
 // Récupérer les matchs par semaine (round)
-router.get('/get/:round', async (req,res) => {
-    const {round} = req.params
+router.get('/get/:round', async (req, res) => {
+    const { round } = req.params;
     try {
-        const matchs = await Match.find({round}).sort({date: 1})
-        res.json({matchs})
+        const matchs = await Match.aggregate([
+            // Filtrer par round
+            { $match: { round: parseInt(round) } },
+            // Trier par ordre croissant des dates
+            { $sort: { date: 1 } },
+            // Reformater la date en format "YYYY-MM-DD" en utilisant $substr
+            {
+                $project: {
+                    formattedDate: {
+                        $substr: [
+                            // Convertir la date en string
+                            { $toString: "$date" }, 0, 10 ]
+                    },
+                    otherFields: "$$ROOT"
+                }
+            },
+            // Grouper par la date formatée
+            {
+                $group: {
+                    _id: "$formattedDate",
+                    matchs: { $push: "$otherFields" }
+                }
+            }
+        ]);
+        res.json({ matchs });
     } catch (err) {
-        res.json({error: err.message})
+        res.json({ error: err.message });
     }
-})
+});
+
+
 
 // Mettre à jour le score d'un match
 router.put('/update/:matchId', async (req,res) => {

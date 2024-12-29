@@ -4,10 +4,12 @@ const MatchSchema = mongoose.Schema({
     teamHome: {
         name: {type: String, required: true},
         logo: {type: String, required: true},
+        teamId: {type: Number, required: true}
     },
     teamAway: {
         name: {type: String, required: true},
         logo: {type: String, required: true},
+        teamId: {type: Number, required: true}
     },
     date: {type: Date, required: true},
     score: {
