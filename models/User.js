@@ -18,6 +18,7 @@ const UserSchema = mongoose.Schema({
     token: {type: String, default: null},
     coins: {type: Number, default: 1000},
     points: {type: Number, default: 0},
+    resetCode: { type: String, default: null },
     avatar: {type: String},
     bets: [BetSchema]
 })
