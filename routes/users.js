@@ -70,7 +70,7 @@ router.put('/update/:token', async (req,res) => {
         if (username) {user.username = username}
         if (avatar) {user.avatar = avatar}
         await user.save()
-        res.json({result: true, message: `Profil mis a jour avec succés !`})
+        res.json({result: true, message: `Profil mis a jour avec succès !`})
     } catch (err) {
         res.json({error: err.message})
     }
