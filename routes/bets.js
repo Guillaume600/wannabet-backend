@@ -30,7 +30,7 @@ router.post('/new', async (req,res) => {
             return res.json({result: false, error: 'Un pari est déja enregistré pour ce match.'})
         }
         // Créer le bet
-        const newBet = {
+        let newBet = {
             matchId,
             predictedScore,
             stake
@@ -38,6 +38,8 @@ router.post('/new', async (req,res) => {
         user.bets.push(newBet)
         user.coins -= stake
         await user.save()
+        // Revnoyé le pari ansi créé
+        newBet = user.bets.find(bet => bet.matchId.toString() === matchId)
         res.json({result: true, bet: newBet})
     } catch (err) {
         res.json({error: err.message})
@@ -120,16 +122,15 @@ router.post('/getBet', async (req,res) => {
   if(!checkBody(req.body, ['token', 'matchId'])) {
     return res.json({result: false, error: 'Champs manquants ou vides.'})
 }
-  const {token, matchId} = res.body
+  const {token, matchId} = req.body
   try {
-
     // Trouver l'utilisateur
     const user = await User.findOne({token})
     if (!user) {
       return res.json({result: false, error: 'Utilisateur introuvable.'})
     } 
     // Trouver le pari correspondant au matchId
-    const bet = user.bets.find(bet => bet.matchId.toString() === matchId.toString())
+    const bet = user.bets.find(bet => bet.matchId.toString() === matchId)
     if (!bet) {
       return res.json({result: false, error: 'Pas de pari trouvé pour ce match.'})
     }

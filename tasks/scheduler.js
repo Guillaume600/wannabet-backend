@@ -4,9 +4,13 @@ const cron = require('node-cron')
 const url = `http://${process.env.SERVER_IP}:3000/matchs/updateStatus`
 
 const task = () => {
-    // Lancement de la route au demarrage du serveur
-    console.log(`${new Date().toLocaleString()}, mise a jour des matchs...`)
-    fetch(url)
+    try {
+        // Lancement de la route au demarrage du serveur
+        console.log(`${new Date().toLocaleString()}, mise a jour des matchs...`)
+        fetch(url)
+    } catch (err) {
+        console.log(err.message)
+    }
     // Planification de l'execution de la route toutes les 10min
     cron.schedule('*/1 * * * *', async () => {
         console.log(`${new Date().toLocaleString()}, mise a jour des matchs...`)

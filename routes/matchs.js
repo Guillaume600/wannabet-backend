@@ -77,8 +77,6 @@ router.get('/get/:round', async (req, res) => {
     }
 });
 
-
-
 // Mettre à jour le score d'un match
 router.put('/update/:matchId', async (req,res) => {
     if(!checkBody(req.body, ['scoreHome', 'scoreAway'])) {
@@ -89,7 +87,7 @@ router.put('/update/:matchId', async (req,res) => {
     try {
         const match = await Match.findById(matchId)
         if (!match) {
-            return res.json({reulst: false, error: 'Match introuvable.'})
+            return res.json({result: false, error: 'Match introuvable.'})
         }
         match.score.home = scoreHome
         match.score.away = scoreAway

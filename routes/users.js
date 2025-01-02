@@ -58,7 +58,7 @@ router.post('/signin', async (req,res) => {
 })
 
 // Mise a jour d'un user via son token
-router.post('/update/:token', async (req,res) => {
+router.put('/update/:token', async (req,res) => {
     const {token} = req.params
     const {email, username, avatar} = req.body
     try {
