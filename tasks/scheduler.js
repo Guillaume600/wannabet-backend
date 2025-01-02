@@ -1,7 +1,7 @@
 const cron = require('node-cron')
 
 // URL de la route
-const url = `http://${process.env.SERVER_IP}:3000/matchs/updateStatus`
+const url = `${process.env.SERVER_IP}:3000/matchs/updateStatus`
 
 const task = () => {
     try {
