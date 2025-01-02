@@ -2,7 +2,7 @@ const cron = require('node-cron')
 
 // URL de la route
 const url = process.env.NODE_ENV === 'production'
-  ? `https://wannabet-backend.vercel.app//matchs/updateStatus`
+  ? `https://wannabet-backend.vercel.app/matchs/updateStatus`
   : `http://localhost:3000/matchs/updateStatus`;
 
 const task = () => {
